@@ -397,16 +397,29 @@ button:focus-visible {
     }
   }
 
+  // Copenhagen's `.nav-wrapper-desktop a` makes every link inline-block,
+  // which knocks the icon and label out of line; keep the pill a flex row.
   .ask-ai,
   .ask-ai:visited {
+    align-items: center;
     background-color: var(--bl-muted);
     border: 0;
     border-radius: 999px;
     color: var(--bl-foreground);
+    display: inline-flex;
+    gap: 8px;
     height: 36px;
+    line-height: 1;
+    margin-inline-end: 0;
     padding: 0 20px;
     font-size: 14px;
+    font-weight: 500;
     text-transform: none;
+
+    .ask-ai-icon {
+      height: 14px;
+      width: 14px;
+    }
 
     &:hover,
     &:focus,
@@ -492,10 +505,17 @@ button:focus-visible {
 
   .ask-ai,
   .ask-ai:visited {
+    align-items: center;
     background-color: var(--bl-foreground);
     border: 0;
     border-radius: 999px;
     color: var(--bl-background);
+    display: inline-flex;
+    font-weight: 500;
+    gap: 8px;
+    height: 36px;
+    line-height: 1;
+    padding: 0 20px;
   }
 }
 
