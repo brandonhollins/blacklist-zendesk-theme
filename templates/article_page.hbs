@@ -1,8 +1,7 @@
-<div class="container-divider"></div>
-<div class="container">
-  <div class="sub-nav">
+<div class="bl-wrap bl-page">
+  <div class="sub-nav bl-subnav">
     {{breadcrumbs}}
-    <div class="search-container">
+    <div class="search-container bl-search">
       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="search-icon" aria-hidden="true">
         <circle cx="4.5" cy="4.5" r="4" fill="none" stroke="currentColor"/>
         <path stroke="currentColor" stroke-linecap="round" d="M11 11L7.5 7.5"/>
@@ -11,8 +10,42 @@
     </div>
   </div>
 
-  <div class="article-container" id="article-container">
-    <aside class="article-sidebar" aria-labelledby="section-articles-title">
+  <header class="bl-article-header">
+    <p class="bl-meta">({{section.name}})</p>
+    <h1 title="{{article.title}}" class="bl-display-xl bl-headline bl-article-title">
+      {{article.title}}
+      {{#if article.internal}}
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" focusable="false" viewBox="0 0 16 16" class="icon-lock" title="{{t 'internal'}}">
+          <rect width="12" height="9" x="2" y="7" fill="currentColor" rx="1" ry="1"/>
+          <path fill="none" stroke="currentColor" d="M4.5 7.5V4a3.5 3.5 0 017 0v3.5"/>
+        </svg>
+      {{/if}}
+    </h1>
+    <div class="bl-article-meta">
+      {{#if settings.show_article_author}}
+        <p class="bl-meta bl-article-author">
+          {{#link 'user_profile' id=article.author.id}}{{article.author.name}}{{/link}}
+        </p>
+      {{/if}}
+      <dl class="bl-facts">
+        <div>
+          {{#is article.created_at article.edited_at}}
+            <dt class="bl-meta">{{t 'created'}}:</dt>
+            <dd class="bl-meta-value">{{date article.created_at timeago=true}}</dd>
+          {{else}}
+            <dt class="bl-meta">{{t 'updated'}}:</dt>
+            <dd class="bl-meta-value">{{date article.edited_at timeago=true}}</dd>
+          {{/is}}
+        </div>
+      </dl>
+      {{#if settings.show_follow_article}}
+        <div class="article-subscribe bl-subscribe">{{subscribe}}</div>
+      {{/if}}
+    </div>
+  </header>
+
+  <div class="bl-article-layout" id="article-container">
+    <aside class="article-sidebar bl-article-sidebar" aria-labelledby="section-articles-title">
       {{#if settings.show_articles_in_section}}
         <div class="collapsible-sidebar">
           <button type="button" class="collapsible-sidebar-toggle" aria-labelledby="section-articles-title" aria-expanded="false">
@@ -23,15 +56,15 @@
               <path stroke="currentColor" stroke-linecap="round" d="M3 9l6-6m0 6L3 3"/>
             </svg>
           </button>
-          <span id="section-articles-title" class="collapsible-sidebar-title sidenav-title">
+          <span id="section-articles-title" class="collapsible-sidebar-title sidenav-title bl-meta">
             {{t 'articles_in_section'}}
           </span>
           <div class="collapsible-sidebar-body">
-            <ul>
+            <ul class="bl-links">
               {{#each section.articles}}
                 <li>
-                  <a href="{{url}}" 
-                     class="sidenav-item {{#is id ../article.id}}current-article{{/is}}"
+                  <a href="{{url}}"
+                     class="sidenav-item bl-link {{#is id ../article.id}}current-article{{/is}}"
                      {{#is id ../article.id}}aria-current="page"{{/is}}>
                        {{title}}
                   </a>
@@ -39,144 +72,81 @@
               {{/each}}
             </ul>
             {{#if section.more_articles}}
-              <a href="{{section.url}}" class="article-sidebar-item">{{t 'see_more'}}</a>
+              <a href="{{section.url}}" class="bl-button bl-button-muted bl-button-xs">{{t 'see_more'}}</a>
             {{/if}}
           </div>
         </div>
       {{/if}}
     </aside>
 
-    <article id="main-content" class="article">
-      <header class="article-header">
-        <h1 title="{{article.title}}" class="article-title">
-          {{article.title}}
-          {{#if article.internal}}
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" focusable="false" viewBox="0 0 16 16" class="icon-lock" title="{{t 'internal'}}">
-              <rect width="12" height="9" x="2" y="7" fill="currentColor" rx="1" ry="1"/>
-              <path fill="none" stroke="currentColor" d="M4.5 7.5V4a3.5 3.5 0 017 0v3.5"/>
-            </svg>
-          {{/if}}
-        </h1>
+    <article id="main-content" class="article bl-article">
+      <div class="article-body bl-prose">{{article.body}}</div>
 
-        <div class="article-author">
-          {{#if settings.show_article_author}}
-            <div class="avatar article-avatar">
-              {{#if article.author.agent}}
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" aria-hidden="true" viewBox="0 0 12 12" class="icon-agent" aria-label="{{t 'team_member' name=article.author.name}}">
-                  <path fill="currentColor" d="M6 0C2.7 0 0 2.7 0 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6zm0 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm2.3 7H3.7c-.3 0-.4-.3-.3-.5C3.9 7.6 4.9 7 6 7s2.1.6 2.6 1.5c.1.2 0 .5-.3.5z"/>
-                </svg>
-              {{/if}}
-              <img src="{{article.author.avatar_url}}" alt="" class="user-avatar"/>
-            </div>
-          {{/if}}
-          <div class="article-meta">
-            {{#if settings.show_article_author}}
-              {{#link 'user_profile' id=article.author.id}}
-                {{article.author.name}}
-              {{/link}}
-            {{/if}}
+      {{#if (compare article.content_tags.length ">" 0)}}
+        <section class="content-tags bl-article-block">
+          <p class="bl-meta">{{t 'content_tags_label'}}</p>
+          <ul class="bl-pills">
+            {{#each article.content_tags}}
+              <li data-content-tag-id="{{id}}">
+                {{#link "search_result" content_tag_id=id class="bl-button bl-button-muted bl-button-xs"}}
+                  {{name}}
+                {{/link}}
+              </li>
+            {{/each}}
+          </ul>
+        </section>
+      {{/if}}
 
-            <div class="meta-group">
-              {{#is article.created_at article.edited_at}}
-                <span class="meta-data">{{date article.created_at timeago=true}}</span>
-              {{else}}
-                <span class="meta-data">{{date article.edited_at timeago=true}}</span>
-                <span class="meta-data">{{t 'updated'}}</span>
-              {{/is}}
-            </div>
-          </div>
-        </div>
+      {{#if attachments}}
+        <section class="bl-article-block">
+          <ul class="bl-rows">
+            {{#each attachments}}
+              <li class="bl-attachment">
+                <a href="{{url}}" target="_blank" class="bl-text-lg bl-title">{{name}}</a>
+                <span class="bl-meta bl-muted">{{size}}</span>
+                <a href="{{url}}" target="_blank" class="bl-meta">{{t 'download'}}</a>
+              </li>
+            {{/each}}
+          </ul>
+        </section>
+      {{/if}}
 
-        {{#if settings.show_follow_article}}
-          <div class="article-subscribe">{{subscribe}}</div>
-        {{/if}}
-      </header>
-
-      <section class="article-info">
-        <div class="article-content">
-          <div class="article-body">{{article.body}}</div>
-
-          {{#if (compare article.content_tags.length ">" 0)}}
-            <section class="content-tags">
-              <p>{{t 'content_tags_label'}}</p>
-              <ul class="content-tag-list">
-                {{#each article.content_tags}}
-                  <li class="content-tag-item" data-content-tag-id="{{id}}">
-                    {{#link "search_result" content_tag_id=id}}
-                      {{name}}
-                    {{/link}}
-                  </li>
-                {{/each}}
-              </ul>
-            </section>
-          {{/if}}
-
-          {{#if attachments}}
-            <div class="article-attachments">
-              <ul class="attachments">
-                {{#each attachments}}
-                  <li class="attachment-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16" class="attachment-icon">
-                      <path fill="none" stroke="currentColor" stroke-linecap="round" d="M9.5 4v7.7c0 .8-.7 1.5-1.5 1.5s-1.5-.7-1.5-1.5V3C6.5 1.6 7.6.5 9 .5s2.5 1.1 2.5 2.5v9c0 1.9-1.6 3.5-3.5 3.5S4.5 13.9 4.5 12V4"/>
-                    </svg>
-                    <a href="{{url}}" target="_blank">{{name}}</a>
-                    <div class="attachment-meta meta-group">
-                      <span class="attachment-meta-item meta-data">{{size}}</span>
-                      <a href="{{url}}" target="_blank" class="attachment-meta-item meta-data">{{t 'download'}}</a>
-                    </div>
-                  </li>
-                {{/each}}
-              </ul>
-            </div>
-          {{/if}}
-        </div>
-      </section>
-
-      <footer>
-        <div class="article-footer">
-          {{#if settings.show_article_sharing}}
-            <div class="article-share">{{share}}</div>
-          {{/if}}
-          {{#if settings.show_article_comments}}
-            {{#if comments}}
-              <a href="#article-comments" class="article-comment-count">
-                <svg role="img" aria-labelledby="article-comments-title article-comments-desc" xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="article-comment-count-icon">
-                  <title id="article-comments-title">{{t 'go_to_comments'}}</title>
-                  <desc id="article-comments-desc">{{t 'comments_count' count=article.comment_count}}</desc>
-                  <path fill="none" stroke="currentColor" d="M1 .5h10c.3 0 .5.2.5.5v7c0 .3-.2.5-.5.5H6l-2.6 2.6c-.3.3-.9.1-.9-.4V8.5H1C.7 8.5.5 8.3.5 8V1C.5.7.7.5 1 .5z"/>
-                </svg>
-                <span aria-hidden="true">{{article.comment_count}}</span>
-              </a>
-            {{/if}}
-          {{/if}}
-        </div>
+      <footer class="bl-article-footer">
         {{#with article}}
-          <div class="article-votes">
-            <h2 class="article-votes-question" id="article-votes-label">{{t 'was_this_article_helpful'}}</h2>
-            <div class="article-votes-controls" role="group" aria-labelledby="article-votes-label">
+          <div class="article-votes bl-votes">
+            <h2 class="bl-meta" id="article-votes-label">{{t 'was_this_article_helpful'}}</h2>
+            <div class="article-votes-controls bl-pills" role="group" aria-labelledby="article-votes-label">
               {{vote 'up' class='button article-vote article-vote-up' selected_class="button-primary"}}
               {{vote 'down' class='button article-vote article-vote-down' selected_class="button-primary"}}
             </div>
-            <small class="article-votes-count">
+            <small class="bl-meta-value bl-muted">
               {{vote 'label' class='article-vote-label'}}
             </small>
           </div>
         {{/with}}
 
-        <div class="article-more-questions">
-          {{request_callout}}
-        </div>
-        <div class="article-return-to-top">
-          <a href="#article-container">
-            {{t 'return_to_top'}}
-            <svg xmlns="http://www.w3.org/2000/svg" class="article-return-to-top-icon" width="20" height="20" focusable="false" viewBox="0 0 12 12" aria-hidden="true">
-              <path fill="none" stroke="currentColor" stroke-linecap="round" d="M3 4.5l2.6 2.6c.2.2.5.2.7 0L9 4.5"/>
-            </svg>
-          </a>
+        <div class="bl-article-actions">
+          {{#if settings.show_article_sharing}}
+            <div class="article-share">{{share}}</div>
+          {{/if}}
+          {{#if settings.show_article_comments}}
+            {{#if comments}}
+              <a href="#article-comments" class="bl-meta">{{t 'comments_count' count=article.comment_count}}</a>
+            {{/if}}
+          {{/if}}
+          <a href="#article-container" class="bl-meta">{{t 'return_to_top'}}</a>
         </div>
       </footer>
 
-      <div class="article-relatives">
+      <div class="bl-promo bl-dark bl-article-promo">
+        {{#isnt settings.shader_palette 'none'}}
+          <canvas class="bl-shader" data-shader="{{settings.shader_palette}}" aria-hidden="true"></canvas>
+        {{/isnt}}
+        <span class="bl-meta">({{t 'submit_a_request'}})</span>
+        <p class="bl-text-xl bl-title">{{request_callout}}</p>
+      </div>
+
+      <div class="article-relatives bl-relatives">
         {{#if settings.show_recently_viewed_articles}}
           {{recent_articles}}
         {{/if}}

@@ -1,11 +1,11 @@
 // Variables
 
 // Colors
-$hover-button-color: zass-darken($brand_color, 20%);
-$secondary-text-color: zass-lighten($text_color, 20%);
+$hover-button-color: zass-lighten($brand_color, 10%);
+$secondary-text-color: zass-darken($text_color, 30%);
 
-$primary-shade: zass-darken($background_color, 3%); //#f8f8f8 for the default background_color
-$secondary-shade: zass-darken($background_color, 5%); //#f2f2f2 for the default background_color
+$primary-shade: zass-lighten($background_color, 6%); //#1A1A1A for the default background_color
+$secondary-shade: zass-lighten($background_color, 10%); //#242424 for the default background_color
 
 $font-size-bigger: 16px;
 $font-size-base: 15px;
@@ -13,15 +13,15 @@ $font-size-navigation: 14px;
 $font-size-small: 13px;
 $font-size-smaller: 11px;
 
-$high-contrast-border-color: #848F99; // maintains a 3:1 contrast ratio with default background color (#FFF). Use for controls and inputs
-$low-contrast-border-color: #ddd; // less than 3:1 contrast ratio with default background color. Use for elements that do not require user interaction
-$menu-border-color: #d8dcde;
+$high-contrast-border-color: #737373; // maintains a 3:1 contrast ratio with default background color (#0A0A0A). Use for controls and inputs
+$low-contrast-border-color: #333; // less than 3:1 contrast ratio with default background color. Use for elements that do not require user interaction
+$menu-border-color: #333;
 
 $button-color: $brand_color;
 
 $input-font-size: 14px;
-$field-text-color: #666;
-$field-text-focus-color: #555;
+$field-text-color: #A3A3A3;
+$field-text-focus-color: #D4D4D4;
 
 // Breakpoints variables
 $tablet-width: 768px;

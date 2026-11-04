@@ -1,21 +1,27 @@
-<div class="container-divider"></div>
-<div id="main-content" class="error-page">
-  <h1>{{t 'oops'}}</h1>
+<section id="main-content" class="bl-hero bl-dark error-page">
+  {{#isnt settings.shader_palette 'none'}}
+    <canvas class="bl-shader" data-shader="{{settings.shader_palette}}" aria-hidden="true"></canvas>
+  {{/isnt}}
+  <div class="bl-wrap bl-screen bl-hero-inner">
+    <!-- The headline comes first for screen readers and sits at the bottom on screen. -->
+    <h1 class="bl-display-4xl bl-headline bl-order-last">{{t 'oops'}}</h1>
+    <div class="bl-error-message">
+      {{#is error 'unauthorized'}}
+        <h2 class="bl-display-lg bl-headline">{{link 'sign_in'}}</h2>
+      {{/is}}
 
-  {{#is error 'unauthorized'}}
-    <h2>{{link 'sign_in'}}</h2>
-  {{/is}}
+      {{#is error 'forbidden'}}
+        <h2 class="bl-display-lg bl-headline">{{t 'not_authorized'}}</h2>
+      {{/is}}
 
-  {{#is error 'forbidden'}}
-    <h2>{{t 'not_authorized'}}</h2>
-  {{/is}}
+      {{#is error 'not_found'}}
+        <h2 class="bl-display-lg bl-headline">{{t 'nonexistent_page'}}</h2>
+        <p class="bl-text-lg bl-body">{{t 'mistyped_address_or_moved_page'}}</p>
+      {{/is}}
 
-  {{#is error 'not_found'}}
-    <h2>{{t 'nonexistent_page'}}</h2>
-    <p>{{t 'mistyped_address_or_moved_page'}}</p>
-  {{/is}}
-
-  {{#link 'help_center'}}
-    {{t 'back_to_homepage'}}
-  {{/link}}
-</div>
+      {{#link 'help_center' class='bl-button bl-button-muted bl-button-sm'}}
+        {{t 'back_to_homepage'}}
+      {{/link}}
+    </div>
+  </div>
+</section>

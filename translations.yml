@@ -438,3 +438,15 @@ parts:
       screenshot: "https://drive.google.com/file/d/18d736vhJIuaYHO_uPeg9E4IBaVnJCoVM/view?usp=sharing"
       value: "Requests list"
       obsolete: "2026-04-01"
+  - translation:
+      key: "txt.help_center_copenhagen_theme.blacklist_group_label"
+      title: "Label for the Blacklist setting group"
+      value: "Blacklist"
+  - translation:
+      key: "txt.help_center_copenhagen_theme.shader_palette_label"
+      title: "Label for the shader palette setting"
+      value: "Shader palette"
+  - translation:
+      key: "txt.help_center_copenhagen_theme.shader_palette_description"
+      title: "Description for the shader palette setting"
+      value: "Colours of the live shader behind the home page header, the error page and the help promos. Off shows plain dark grey."
