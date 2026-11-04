@@ -1,13 +1,17 @@
 <h1 class="visibility-hidden">{{ t 'community'}}</h1>
 
-<section class="section hero community-hero">
-  <h2 class="visibility-hidden">{{ t 'search'}}</h2>
-  <div class="hero-inner">
-    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="search-icon" aria-hidden="true">
-      <circle cx="4.5" cy="4.5" r="4" fill="none" stroke="currentColor"/>
-      <path stroke="currentColor" stroke-linecap="round" d="M11 11L7.5 7.5"/>
-    </svg>
-    {{search submit=false class='search search-full' scoped=settings.scoped_community_search}}
+<section class="community-hero bl-hero bl-dark">
+  {{#isnt settings.shader_palette 'none'}}
+    <canvas class="bl-shader" data-shader="{{settings.shader_palette}}" aria-hidden="true"></canvas>
+  {{/isnt}}
+  <div class="bl-wrap bl-community-hero-inner">
+    <div class="bl-hero-search">
+      <h2 class="bl-meta">({{ t 'search'}})</h2>
+      <div class="bl-search bl-search-large">
+        {{search submit=false class='search search-full' scoped=settings.scoped_community_search}}
+      </div>
+    </div>
+    <p class="bl-display-3xl bl-headline" aria-hidden="true">{{t 'community'}}</p>
   </div>
 </section>
 
