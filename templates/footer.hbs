@@ -7,7 +7,7 @@
       <nav class="bl-footer-column" aria-label="{{help_center.name}}">
         <ul class="bl-footer-links">
           <li>{{#link 'help_center'}}{{t 'go_to_help_center'}}{{/link}}</li>
-          <li>{{link 'new_request'}}</li>
+          <li>{{#link 'new_request'}}Submit a ticket{{/link}}</li>
           {{#if help_center.community_enabled}}
             <li>{{link 'community'}}</li>
           {{/if}}
