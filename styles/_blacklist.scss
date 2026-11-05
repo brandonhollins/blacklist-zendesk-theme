@@ -1788,7 +1788,28 @@ html:root {
 
 .ck.ck-editor__top .ck-toolbar.ck-toolbar {
   border: 0;
-  padding-left: 0;
+  padding: 0;
+
+  // Hairline dividers in the field line colour, not the white default.
+  .ck-toolbar__separator.ck-toolbar__separator {
+    align-self: center;
+    background: var(--bl-border);
+    height: 16px;
+    margin: 0 8px;
+    width: 1px;
+  }
+
+  // The first control's label starts on the same line as the text below.
+  .ck-toolbar__items > :first-child {
+    margin-left: 0;
+
+    > .ck-button { padding-left: 0; }
+  }
+
+  .ck-button { color: var(--bl-muted-foreground); }
+
+  .ck-button:hover:not(.ck-disabled),
+  .ck-button.ck-on { color: var(--bl-foreground); }
 }
 
 .ck.ck-editor__main > .ck-editor__editable.ck-editor__editable {

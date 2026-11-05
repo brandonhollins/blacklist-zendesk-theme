@@ -7231,7 +7231,27 @@ html:root {
 
 .ck.ck-editor__top .ck-toolbar.ck-toolbar {
   border: 0;
+  padding: 0;
+}
+.ck.ck-editor__top .ck-toolbar.ck-toolbar .ck-toolbar__separator.ck-toolbar__separator {
+  align-self: center;
+  background: var(--bl-border);
+  height: 16px;
+  margin: 0 8px;
+  width: 1px;
+}
+.ck.ck-editor__top .ck-toolbar.ck-toolbar .ck-toolbar__items > :first-child {
+  margin-left: 0;
+}
+.ck.ck-editor__top .ck-toolbar.ck-toolbar .ck-toolbar__items > :first-child > .ck-button {
   padding-left: 0;
+}
+.ck.ck-editor__top .ck-toolbar.ck-toolbar .ck-button {
+  color: var(--bl-muted-foreground);
+}
+.ck.ck-editor__top .ck-toolbar.ck-toolbar .ck-button:hover:not(.ck-disabled),
+.ck.ck-editor__top .ck-toolbar.ck-toolbar .ck-button.ck-on {
+  color: var(--bl-foreground);
 }
 
 .ck.ck-editor__main > .ck-editor__editable.ck-editor__editable {
