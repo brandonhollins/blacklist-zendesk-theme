@@ -1812,7 +1812,9 @@ html:root {
   .ck-button.ck-on { color: var(--bl-foreground); }
 }
 
-.ck.ck-editor__main > .ck-editor__editable.ck-editor__editable {
+// The doubled classes outrank the editor's own `:not(.ck-focused)` border
+// rule, which is injected after this stylesheet.
+.ck.ck-editor__main > .ck-editor__editable.ck-editor__editable.ck-editor__editable {
   @include bl-field;
   font-size: 16px;
   min-height: 160px;
@@ -1821,6 +1823,38 @@ html:root {
   &:hover { @include bl-field-hover; }
 
   &.ck-focused.ck-focused { @include bl-field-focus; }
+}
+
+// Zendesk's editor package forces black text and a light code block with
+// !important, so only !important with more specificity puts them back.
+.ck.ck-content.ck-content {
+  color: var(--bl-foreground);
+
+  p, ul, ol { color: var(--bl-foreground) !important; }
+
+  pre {
+    background-color: var(--bl-muted) !important;
+    border-color: var(--bl-border);
+    border-radius: 0;
+    color: var(--bl-foreground);
+  }
+
+  code { background-color: var(--bl-muted); }
+
+  blockquote { border-left-color: var(--bl-border); }
+}
+
+// The package's error state draws a red box with a white ring; keep it an
+// underline like the other fields.
+textarea[aria-invalid="true"] + .ck.ck-editor .ck-editor__main > .ck-editor__editable.ck-editor__editable {
+  border-color: transparent !important;
+  border-bottom-color: var(--bl-field-line-invalid) !important;
+  box-shadow: none;
+  outline: none;
+}
+
+textarea[aria-invalid="true"] + .ck.ck-editor .ck-sticky-panel__content {
+  border-color: transparent !important;
 }
 
 /* Dark ground fixes */

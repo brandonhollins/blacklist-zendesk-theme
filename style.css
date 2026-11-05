@@ -7254,7 +7254,7 @@ html:root {
   color: var(--bl-foreground);
 }
 
-.ck.ck-editor__main > .ck-editor__editable.ck-editor__editable {
+.ck.ck-editor__main > .ck-editor__editable.ck-editor__editable.ck-editor__editable {
   background-color: transparent;
   border: 0;
   border-bottom: 1px solid var(--bl-field-line);
@@ -7267,13 +7267,43 @@ html:root {
   min-height: 160px;
   padding: 8px 0;
 }
-.ck.ck-editor__main > .ck-editor__editable.ck-editor__editable:hover {
+.ck.ck-editor__main > .ck-editor__editable.ck-editor__editable.ck-editor__editable:hover {
   border-bottom-color: var(--bl-field-line-hover);
 }
-.ck.ck-editor__main > .ck-editor__editable.ck-editor__editable.ck-focused.ck-focused {
+.ck.ck-editor__main > .ck-editor__editable.ck-editor__editable.ck-editor__editable.ck-focused.ck-focused {
   border-bottom-color: var(--bl-field-line-focus);
   box-shadow: 0 1px 0 0 var(--bl-field-line-focus);
   outline: none;
+}
+
+.ck.ck-content.ck-content {
+  color: var(--bl-foreground);
+}
+.ck.ck-content.ck-content p, .ck.ck-content.ck-content ul, .ck.ck-content.ck-content ol {
+  color: var(--bl-foreground) !important;
+}
+.ck.ck-content.ck-content pre {
+  background-color: var(--bl-muted) !important;
+  border-color: var(--bl-border);
+  border-radius: 0;
+  color: var(--bl-foreground);
+}
+.ck.ck-content.ck-content code {
+  background-color: var(--bl-muted);
+}
+.ck.ck-content.ck-content blockquote {
+  border-left-color: var(--bl-border);
+}
+
+textarea[aria-invalid=true] + .ck.ck-editor .ck-editor__main > .ck-editor__editable.ck-editor__editable {
+  border-color: transparent !important;
+  border-bottom-color: var(--bl-field-line-invalid) !important;
+  box-shadow: none;
+  outline: none;
+}
+
+textarea[aria-invalid=true] + .ck.ck-editor .ck-sticky-panel__content {
+  border-color: transparent !important;
 }
 
 /* Dark ground fixes */
